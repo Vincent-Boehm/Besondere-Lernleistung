@@ -1,3 +1,6 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1728948795
+::res://::1728949358
 icon.svg::CompressedTexture2D::6661903186871768167::1728948771::1728948797::1::::<><>::
+ImageToStl.com_beer_glass-export.obj::Mesh::4351142357232713471::1728949353::1728949490::1::::<><>::
+MainScene.tscn::PackedScene::3815992143422944252::1728949474::0::1::::<><>::res://voxel_manager.gd
+voxel_manager.gd::GDScript::-1::1728949474::0::1::::<>Node3D<>::
