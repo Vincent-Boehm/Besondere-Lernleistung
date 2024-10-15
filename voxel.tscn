@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck2y67ie80d2w"]
+
+[ext_resource type="Script" path="res://voxel.gd" id="1_3sbrl"]
+
+[node name="Voxel" type="Node3D"]
+script = ExtResource("1_3sbrl")
