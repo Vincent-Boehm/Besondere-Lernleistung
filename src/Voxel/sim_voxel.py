@@ -1,12 +1,12 @@
 import numpy as np
 import plotly.graph_objects as go
 import sympy
+import pandas as pd 
 
 
 delta_h = 1
 
-
-delta_t = 0.0015
+delta_t = 0.0016
 
 
 intended_t = 100
@@ -14,26 +14,26 @@ intended_t = 100
 t = 0
 
 
-X,Y,Z = np.meshgrid(np.arange(0,50,1),np.arange(0,50,1),np.arange(0,50,1))
+X,Y,Z = np.meshgrid(np.arange(0,20,1),np.arange(0,20,1),np.arange(0,20,1))
 
 
-t_field = np.full_like(X,600,dtype=np.float32)
+t_field = np.full_like(X,300,dtype=np.float32)
 
 alpha_field = np.full_like(X,96,dtype=np.float32) # Thermal diffusivty of Alluminium
 
 # Padding = boundary conditions
-t_f = np.pad(
-    t_field,
-    pad_width=((1, 1), (1, 1), (1, 1)),
-    mode='constant',
-    constant_values= 0
-)
+
 
 result_file = []
 index = 0
 while t <= intended_t:
     
-
+    t_f = np.pad(
+    t_field,
+    pad_width=((1, 1), (1, 1), (1, 1)),
+    mode='constant',
+    constant_values= 0
+    )
 
     t_f[0, :, :] = 300  # Top face Room temp
     t_f[-1, :, :] = 300  # Bottom face Stove
@@ -49,14 +49,15 @@ while t <= intended_t:
             (t_f[1:-1, 2:, 1:-1] - 2 * t_f[1:-1, 1:-1, 1:-1] + t_f[1:-1, :-2, 1:-1]) +
             (t_f[1:-1, 1:-1, 2:] - 2 * t_f[1:-1, 1:-1, 1:-1] + t_f[1:-1, 1:-1, :-2])
         ) * alpha_field
-    ) * (delta_t / delta_h**2)
+    ) * (delta_t)
     
-    result_file.append(t_field)
 
     t += delta_t
     print(t)
         
-np.save("Result-Sim-Voxel-1.npy",result_file)
+np.savetxt("data_voxel.csv", t_field.flatten(), fmt="%f" ,delimiter=",")
+
+
 
 fig = go.Figure(data=go.Volume(
     x=X.flatten(),
